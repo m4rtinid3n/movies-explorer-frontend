@@ -11,10 +11,10 @@ function MoviesCard(props) {
 
   MoviesCard.propTypes = {
     uniqueId: PropTypes.string.isRequired,
-    duration: PropTypes.number.isRequired, 
-    cover: PropTypes.string.isRequired, 
-    title: PropTypes.string.isRequired, 
-    isFavourite: PropTypes.bool.isRequired, 
+    duration: PropTypes.number.isRequired,
+    cover: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    isFavourite: PropTypes.bool.isRequired,
   };
 
   function calcDuration(movieDurationInMinutes) {
