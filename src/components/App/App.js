@@ -296,6 +296,12 @@ function App() {
           onClose={closeAllPopup}
         />
 
+        <Tooltip
+          isOpen={isTooltipOpen}
+          onClose={closeAllPopup}
+          loggedIn={loggedIn}
+        />
+
       </CurrentUserContext.Provider>
 
     </div >
