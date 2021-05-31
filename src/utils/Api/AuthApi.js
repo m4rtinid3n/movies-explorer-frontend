@@ -1,4 +1,4 @@
-export const BASE_URL = 'api.m4rtinid3n.movies.nomoredomains.icu';
+export const BASE_URL = 'https://api.m4rtinid3n.movies.nomoredomains.icu';
 // export const BASE_URL = 'http://localhost:4000';
 
 const headers = {
