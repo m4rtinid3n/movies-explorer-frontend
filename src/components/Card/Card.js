@@ -1,7 +1,6 @@
 import React from 'react';
 import { MOVIE_URL } from '../../utils/Api/MoviesApi';
 
-
 function Card({ card, onDeleteCard, onSaveCard, pageType, liked }) {
 
     function handleClick(e) {

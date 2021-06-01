@@ -42,9 +42,6 @@
 
 .card__label {
   display: flex;
-  /* border-radius: 0 0 10px 10px;
-  background-color: white; */
-
   justify-content: space-between;
   align-items: center;
 
@@ -131,9 +128,6 @@
   .card__item:nth-child(odd) {
     margin-right: 5%;
   }
-  /* .card__img {
-    height: 190px;
-  } */
 }
 
 @media all and (max-width: 750px) {
@@ -168,7 +162,4 @@
   .card__button {
     margin: 14px 0;
   }
-  /* .card__image {
-    height: 168px;
-  } */
 }
