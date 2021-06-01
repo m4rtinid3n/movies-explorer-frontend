@@ -1,21 +1,32 @@
-import React from "react";
-import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
-import SearchForm from "../SearchForm/SearchForm";
-import MoviesCardList from "../MoviesCardList/MoviesCardList";
+import React from 'react';
+import Footer from '../Footer/Footer';
+import MoviesList from '../MoviesList/MoviesList';
 
-function Movies() {
-  const [showShortMovies, setShowShortMovies] = React.useState(true);
+function Movies({
 
-  function onCheckBoxToggle(isCheckBoxChecked) {
-    setShowShortMovies(isCheckBoxChecked);
-  }
-  return (
-    <>
-      <SearchForm onCheckBoxToggle={onCheckBoxToggle} />
-      <FilterCheckbox />
-      <MoviesCardList onlyFavourite={false} showShortMovies={showShortMovies} />
-    </>
-  );
+    cards,
+    savedCards,
+    deleteMovie,
+    createMovie,
+    pageType
+
+}) {
+
+    return (
+        <main className="moviesList">
+
+            <MoviesList
+                cards={cards}
+                savedCards={savedCards}
+                deleteMovie={deleteMovie}
+                createMovie={createMovie}
+
+                pageType={pageType}
+
+            />
+            <Footer />
+        </main >
+    );
 }
 
 export default Movies;
