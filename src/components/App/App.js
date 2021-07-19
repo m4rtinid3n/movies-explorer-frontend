@@ -131,6 +131,9 @@ function App() {
   }
 
   // Данные при загрузке
+  const localStorageMovies = JSON.parse(
+    localStorage.getItem('movieStorageList')
+  );
 
   React.useEffect(() => {
     if (!loggedIn) {
@@ -139,19 +142,27 @@ function App() {
     Promise.all([
       mainApi.getUserInfo(),
       mainApi.getSavedMovies(),
-      getMovies(),
+      getMovies,
     ])
       .then(([userData, savedData, cardsData]) => {
-        console.log(userData, savedData)
-        setCurrentUser(userData)
-        setSavedCards(savedData)
-        localStorage.setItem("localData", JSON.stringify(cardsData));
-        const localData = JSON.parse(localStorage.getItem("localData"));
-        setCards(localData)
+        let movieArrayList = [];
+        const setMovieArrayList = () => {
+          if (!localStorage.getItem('movieStorageList')) {
+            localStorage.setItem('movieStorageList', JSON.stringify(cardsData));
+          } else {
+            localStorage.removeItem('movieStorageList');
+            localStorage.setItem('movieStorageList', JSON.stringify(cardsData));
+          }
+
+          movieArrayList = JSON.parse(localStorage.getItem('movieStorageList'));
+          return movieArrayList;
+        };
+        const [userObj] = userData;
+        setCurrentUser(userObj);
+        setSavedCards(savedData);
+        setCards(setMovieArrayList());
       })
-      .catch((err) => {
-        console.log(err)
-      })
+      .catch((err) => console.log(`Ошибка ${err.status} - ${err.statusText}`));
   }, [loggedIn]);
 
 
@@ -160,8 +171,8 @@ function App() {
   function onEditUser(userInfo) {
     mainApi.editUserInfo(userInfo)
       .then((newUserInfo) => {
-        setCurrentUser(newUserInfo)
-        history.push('/movies');
+        setCurrentUser(newUserInfo);
+        setServerError(`Обновление прошло успешно!`);
       })
       .catch((err) => {
         if (err.code === 400) {
@@ -248,6 +259,7 @@ function App() {
               deleteMovie={deleteMovie}
               createMovie={createMovie}
               pageType={true}
+              localStorageMovies={localStorageMovies}
             />
           </ProtectedRoute>
 

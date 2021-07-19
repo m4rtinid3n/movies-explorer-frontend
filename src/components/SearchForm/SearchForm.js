@@ -46,8 +46,7 @@ function SearchForm({ onSearchSubmit, cards, movieSearch, searchWord, onToggle, 
                 </button>
             </form>
 
-            <p className="searchForm__text">Короткометражки</p>
-            <div className="searchForm__check-block">
+           <div className="searchForm__check-block">
 
                 <label htmlFor="checkbox" className="searchForm__check-switch">
                     <input type="checkbox"
@@ -56,6 +55,7 @@ function SearchForm({ onSearchSubmit, cards, movieSearch, searchWord, onToggle, 
                     />
                     <span className="searchForm__check-toggle"></span>
                 </label>
+                <p className="searchForm__text">Короткометражки</p>
             </div>
         </section >
     );
