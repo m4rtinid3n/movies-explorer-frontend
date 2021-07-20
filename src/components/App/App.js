@@ -131,9 +131,6 @@ function App() {
   }
 
   // Данные при загрузке
-  const localStorageMovies = JSON.parse(
-    localStorage.getItem('movieStorageList')
-  );
 
   React.useEffect(() => {
     if (!loggedIn) {
@@ -142,27 +139,19 @@ function App() {
     Promise.all([
       mainApi.getUserInfo(),
       mainApi.getSavedMovies(),
-      getMovies,
+      getMovies(),
     ])
       .then(([userData, savedData, cardsData]) => {
-        let movieArrayList = [];
-        const setMovieArrayList = () => {
-          if (!localStorage.getItem('movieStorageList')) {
-            localStorage.setItem('movieStorageList', JSON.stringify(cardsData));
-          } else {
-            localStorage.removeItem('movieStorageList');
-            localStorage.setItem('movieStorageList', JSON.stringify(cardsData));
-          }
-
-          movieArrayList = JSON.parse(localStorage.getItem('movieStorageList'));
-          return movieArrayList;
-        };
-        const [userObj] = userData;
-        setCurrentUser(userObj);
-        setSavedCards(savedData);
-        setCards(setMovieArrayList());
+        console.log(userData, savedData)
+        setCurrentUser(userData)
+        setSavedCards(savedData)
+        localStorage.setItem("localData", JSON.stringify(cardsData));
+        const localData = JSON.parse(localStorage.getItem("localData"));
+        setCards(cardsData)
       })
-      .catch((err) => console.log(`Ошибка ${err.status} - ${err.statusText}`));
+      .catch((err) => {
+        console.log(err)
+      })
   }, [loggedIn]);
 
 
@@ -171,7 +160,7 @@ function App() {
   function onEditUser(userInfo) {
     mainApi.editUserInfo(userInfo)
       .then((newUserInfo) => {
-        setCurrentUser(newUserInfo);
+        setCurrentUser(newUserInfo)
         setServerError(`Обновление прошло успешно!`);
       })
       .catch((err) => {
@@ -259,7 +248,6 @@ function App() {
               deleteMovie={deleteMovie}
               createMovie={createMovie}
               pageType={true}
-              localStorageMovies={localStorageMovies}
             />
           </ProtectedRoute>
 
