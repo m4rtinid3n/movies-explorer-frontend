@@ -34,6 +34,8 @@ function App() {
   const [currentUser, setCurrentUser] = React.useState({});
   const [cards, setCards] = React.useState([]);
   const [savedCards, setSavedCards] = React.useState([]);
+  const [filterMovies, setFilterMovies] = React.useState([]);
+
 
   const [isMenuPopupOpen, setMenuPopupOpen] = React.useState(false);
   const [isTooltipOpen, setTooltipOpen] = React.useState(false);
@@ -131,6 +133,12 @@ function App() {
   }
 
   // Данные при загрузке
+  React.useEffect(()=> {
+    const filterData = JSON.parse(localStorage.getItem('filterMovies'));
+    if(filterData) {
+      setFilterMovies(filterData);
+    }
+  }, [])
 
   React.useEffect(() => {
     if (!loggedIn) {
@@ -146,7 +154,8 @@ function App() {
         setCurrentUser(userData)
         setSavedCards(savedData)
         localStorage.setItem("localData", JSON.stringify(cardsData));
-        const localData = JSON.parse(localStorage.getItem("localData"));
+        localStorage.setItem("savedMovies", JSON.stringify(savedData));
+        // const localData = JSON.parse(localStorage.getItem("localData"));
         setCards(cardsData)
       })
       .catch((err) => {
@@ -244,6 +253,8 @@ function App() {
           <ProtectedRoute path="/movies" loggedIn={loggedIn}>
             <Movies
               cards={cards}
+              filterMovies={filterMovies}
+              setFilterMovies = {setFilterMovies}
               savedCards={savedCards}
               deleteMovie={deleteMovie}
               createMovie={createMovie}
